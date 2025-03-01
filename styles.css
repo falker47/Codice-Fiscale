@@ -1,46 +1,69 @@
-/* Imposta uno sfondo chiaro e un wrapper centrato */
+/*******************************************
+  FONT E BACKGROUND
+********************************************/
 body {
     margin: 0;
-    background-color: #e9ecf3;
-    font-family: Arial, sans-serif;
+    padding: 0;
+    /* Semplice gradiente per lo sfondo */
+    background: linear-gradient(120deg, #f5f7fa, #c3cfe2);
+    font-family: 'Poppins', sans-serif; /* Font da Google Fonts */
     color: #333;
   }
   
+  /* Wrapper con larghezza massima e margini */
   .wrapper {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 30px 20px;
   }
   
-  /* Stile del titolo */
+  /*******************************************
+    TITOLI
+  ********************************************/
   h1 {
     text-align: center;
-    margin-bottom: 30px;
-    color: #333;
+    margin-bottom: 40px;
+    color: #2c3e50;
+    font-weight: 600;
+    letter-spacing: 1px;
   }
   
-  /* Contenitore flessibile per le sezioni Genera/Decodifica */
+  h2 {
+    margin-top: 0;
+    color: #007bff;
+    font-weight: 600;
+  }
+  
+  /*******************************************
+    LAYOUT PRINCIPALE
+  ********************************************/
   .container {
     display: flex;
     gap: 20px;
     margin-bottom: 30px;
   }
   
-  /* Ogni sezione come una card */
+  /*******************************************
+    SEZIONI (CARDS)
+  ********************************************/
   section {
     flex: 1 1 300px;
     background-color: #fff;
-    border-radius: 6px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
     padding: 20px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
   
-  h2 {
-    margin-top: 0;
-    color: #007bff;
+  /* Leggero effetto hover sulla card */
+  section:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   }
   
-  /* Righe e gruppi del form */
+  /*******************************************
+    FORMS E CAMPI
+  ********************************************/
   .form-row {
     display: flex;
     gap: 10px;
@@ -52,52 +75,86 @@ body {
     flex-direction: column;
   }
   
-  /* Specifiche per la seconda riga:
-     - birthGroup e placeGroup si espandono
-     - genderGroup è più stretto */
+  /* birthGroup e placeGroup si espandono,
+     genderGroup è più stretto */
   #birthGroup, #placeGroup {
     flex: 1;
   }
-  
   #genderGroup {
-    flex: 0 0 80px; /* più stretto */
+    flex: 0 0 80px;
   }
   
-  /* Input e select */
-  input[type="text"], input[type="date"], select {
+  /* Stile di base per input e select */
+  input[type="text"],
+  input[type="date"],
+  select {
     text-transform: uppercase;
-    padding: 8px;
+    padding: 10px;
     font-size: 14px;
     margin-top: 5px;
     width: 100%;
     box-sizing: border-box;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    transition: border-color 0.2s;
   }
   
-  /* Pulsanti */
+  /* Effetto focus */
+  input[type="text"]:focus,
+  input[type="date"]:focus,
+  select:focus {
+    outline: none;
+    border-color: #80bdff;
+  }
+  
+  /*******************************************
+    PULSANTI
+  ********************************************/
   button {
     background-color: #007bff;
     color: #fff;
     border: none;
     cursor: pointer;
-    font-weight: bold;
+    font-weight: 600;
     border-radius: 4px;
-    padding: 10px 20px;
-    transition: background-color 0.2s ease;
+    padding: 12px 24px;
+    transition: background-color 0.2s ease, transform 0.1s ease;
   }
   
   button:hover {
     background-color: #0056b3;
   }
   
-  /* Output box con testo più grande */
+  button:active {
+    transform: scale(0.97);
+  }
+  
+  /* Stile per il bottone "Copia" */
+  .copy-button {
+    background-color: transparent;
+    border: none;
+    padding: 6px;
+    cursor: pointer;
+    color: #333;
+    align-self: center;
+    transition: color 0.2s ease;
+  }
+  
+  .copy-button:hover {
+    color: #007bff;
+  }
+  
+  /*******************************************
+    OUTPUT BOX
+  ********************************************/
   .output-box {
     margin-top: 15px;
     background-color: #f8f9fa;
-    padding: 10px;
+    padding: 12px 16px;
     border-radius: 4px;
     min-height: 50px;
     display: flex;
-    align-items: center; /* Centro verticale */
+    align-items: center;
     font-size: 16px;
     color: #333;
     position: relative;
@@ -108,27 +165,61 @@ body {
     flex: 1;
     margin-right: 10px;
   }
-  .copy-button {
-    background-color: transparent;
-    border: none;
-    padding: 6px;
-    cursor: pointer;
-    color: #333;
-    align-self: center; /* Centra verticalmente */
-  }
-  .copy-button:hover {
-    color: #007bff;
-  }
   
-  /* Spaziatura verticale nel form di decodifica */
-  #decodeForm > * {
+  /*******************************************
+    DECODIFICA FORM
+  ********************************************/
+  #decodeForm {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
     margin-bottom: 10px;
   }
   
-  /* Responsive: su schermi piccoli, le sezioni vanno in colonna */
+  #decodeForm label {
+    flex: 1 0 100%;
+    margin-bottom: 5px;
+  }
+  
+  #decodeForm input[type="text"] {
+    flex: 1 0 calc(100% - 100px);
+    margin-top: 0;
+  }
+  
+  #decodeBtn {
+    flex: 0 0 auto;
+  }
+
+  #credits {
+    margin-top: 2em;           /* Spazio prima della sezione */
+    margin-bottom: 2em;
+    text-align: center;        /* Centra il testo */
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;               /* Colore del testo */
+  }
+  
+  .credits-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.05rem;   /* Leggera spaziatura tra le lettere */
+    margin-bottom: 0.3em;
+    text-transform: uppercase; /* Testo maiuscolo */
+  }
+  
+  .credits-author {
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  /*******************************************
+    RESPONSIVENESS
+  ********************************************/
   @media (max-width: 768px) {
     .container {
       flex-direction: column;
+    }
+    section {
+      margin-bottom: 20px;
     }
   }
   
