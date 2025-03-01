@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Codice Fiscale - Calcolatore e Decodificatore</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Codice Fiscale: Calcolo e Decodifica</h1>
+  <div class="container">
+    <!-- Sezione per generare il Codice Fiscale -->
+    <section id="generator">
+      <h2>Genera il Codice Fiscale</h2>
+      <form id="cfForm">
+        <!-- Prima riga: Nome e Cognome -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Nome:</label>
+            <input type="text" id="name" required>
+          </div>
+          <div class="form-group">
+            <label for="surname">Cognome:</label>
+            <input type="text" id="surname" required>
+          </div>
+        </div>
+        <!-- Seconda riga: Data di nascita, Sesso, Comune -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="birthdate">Data di nascita (YYYY-MM-DD):</label>
+            <input type="date" id="birthdate" required>
+          </div>
+          <div class="form-group">
+            <label for="gender">Sesso:</label>
+            <select id="gender" required>
+              <option value="M">M</option>
+              <option value="F">F</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="place">Comune di nascita:</label>
+            <!-- Utilizzo del datalist per l'autocomplete -->
+            <input type="text" id="place" list="comuniList" required>
+            <datalist id="comuniList"></datalist>
+          </div>
+        </div>
+        <button type="submit">Genera Codice Fiscale</button>
+      </form>
+      <p id="cfResult"></p>
+    </section>
+
+    <!-- Sezione per decodificare il Codice Fiscale -->
+    <section id="decoder">
+      <h2>Decodifica il Codice Fiscale</h2>
+      <form id="decodeForm">
+        <label for="cfInput">Inserisci Codice Fiscale:</label>
+        <input type="text" id="cfInput" required>
+        <button type="submit">Decodifica</button>
+      </form>
+      <p id="decodeResult"></p>
+    </section>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
