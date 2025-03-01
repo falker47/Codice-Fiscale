@@ -37,6 +37,17 @@ function loadComuni() {
     });
 }
 
+// Utility per la navigazione col tasto Invio
+function focusNextFieldOnEnter(currentId, nextId) {
+  const currentEl = document.getElementById(currentId);
+  currentEl.addEventListener("keydown", function(e) {
+    if(e.key === "Enter") {
+      e.preventDefault();
+      document.getElementById(nextId).focus();
+    }
+  });
+}
+
 // Funzioni di utilità per estrarre consonanti e vocali
 function getConsonants(str) {
   return str.toUpperCase().replace(/[^BCDFGHJKLMNPQRSTVWXYZ]/g, '');
@@ -71,7 +82,7 @@ function generateNameCode(name) {
 function generateDateCode(birthdate, gender) {
   let date = new Date(birthdate);
   let year = date.getFullYear().toString().slice(-2);
-  let month = date.getMonth(); // mese 0-based
+  let month = date.getMonth(); // 0-based
   const monthMap = ['A','B','C','D','E','H','L','M','P','R','S','T'];
   let day = date.getDate();
   if (gender === "F") {
@@ -108,6 +119,7 @@ function generateCheckDigit(cf15) {
   let sum = 0;
   for (let i = 0; i < cf15.length; i++) {
     let c = cf15[i];
+    // Indice dispari (1-based) => oddValues, altrimenti evenValues
     if ((i + 1) % 2 !== 0) {
       sum += oddValues[c];
     } else {
@@ -136,11 +148,11 @@ function decodeCodiceFiscale(cf) {
     return null;
   }
 
-  // Ricostruzione dell'anno completo
+  // Anno
   let yearTwoDigits = parseInt(cf.slice(6, 8), 10);
   let yearFull = (yearTwoDigits < 30) ? 2000 + yearTwoDigits : 1900 + yearTwoDigits;
 
-  // Mese: conversione della lettera in nome del mese
+  // Mese
   let monthLetter = cf[8];
   const monthMap = {
     'A': "Gennaio", 'B': "Febbraio", 'C': "Marzo", 'D': "Aprile",
@@ -154,7 +166,7 @@ function decodeCodiceFiscale(cf) {
   let gender = (dayCode > 40) ? "F" : "M";
   let day = (gender === "F") ? dayCode - 40 : dayCode;
 
-  // Recupera il comune e la provincia dal codice Belfiore (posizioni 11-14)
+  // Comune e provincia
   let belfiore = cf.slice(11, 15);
   let comune = "Comune sconosciuto";
   let provincia = "";
@@ -175,10 +187,23 @@ function decodeCodiceFiscale(cf) {
 
 // Attende il caricamento completo del DOM
 document.addEventListener("DOMContentLoaded", function() {
-  // Carica la mappa dei comuni e popola il datalist
+  // Carica la mappa dei comuni
   loadComuni();
 
-  // Gestione del form per generare il Codice Fiscale
+  // Abilita la navigazione con Invio tra i campi del form di generazione
+  focusNextFieldOnEnter("name", "surname");
+  focusNextFieldOnEnter("surname", "birthdate");
+  focusNextFieldOnEnter("birthdate", "gender");
+  focusNextFieldOnEnter("gender", "place");
+  // Su "place" non forziamo il passaggio al prossimo, perché vogliamo
+  // che Enter invii il form (comportamento predefinito).
+
+  // Riferimenti ai nodi DOM
+  const cfResultText = document.getElementById("cfResultText");
+  const copyCFButton = document.getElementById("copyCFButton");
+  const decodeResultBox = document.getElementById("decodeResultBox");
+
+  // Form per generare il CF
   document.getElementById("cfForm").addEventListener("submit", function(e) {
     e.preventDefault();
     const surname = document.getElementById("surname").value;
@@ -188,20 +213,43 @@ document.addEventListener("DOMContentLoaded", function() {
     const place = document.getElementById("place").value;
     
     const cf = generateCodiceFiscale(surname, name, birthdate, gender, place);
-    document.getElementById("cfResult").innerText = "Codice Fiscale: " + cf;
+    
+    if (cf) {
+      cfResultText.innerText = "Codice Fiscale: " + cf;
+      copyCFButton.style.display = "inline-flex";
+    } else {
+      cfResultText.innerText = "Impossibile generare il codice fiscale.";
+      copyCFButton.style.display = "none";
+    }
   });
 
-  // Gestione del form per decodificare il Codice Fiscale
+  // Bottone "Copia"
+  copyCFButton.addEventListener("click", function() {
+    // Rimuove il prefisso "Codice Fiscale: " per copiare solo il CF
+    const text = cfResultText.innerText.replace("Codice Fiscale: ", "");
+    navigator.clipboard.writeText(text)
+      .then(() => {
+        alert("Codice fiscale copiato negli appunti!");
+      })
+      .catch(err => {
+        console.error("Errore durante la copia:", err);
+      });
+  });
+
+  // Form per decodificare il CF
   document.getElementById("decodeForm").addEventListener("submit", function(e) {
     e.preventDefault();
     const cfInput = document.getElementById("cfInput").value.toUpperCase();
     const data = decodeCodiceFiscale(cfInput);
+
     if (data) {
       const genderString = (data.gender === "M") ? "Maschile" : "Femminile";
-      const output = `Data di nascita: ${data.day} ${data.monthName} ${data.year}
-Luogo di nascita: ${data.comune} (${data.provincia})
-Sesso: ${genderString}`;
-      document.getElementById("decodeResult").innerText = output;
+      const output = `Data di nascita: ${data.day} ${data.monthName} ${data.year}\n` +
+                     `Luogo di nascita: ${data.comune} (${data.provincia})\n` +
+                     `Sesso: ${genderString}`;
+      decodeResultBox.innerText = output;
+    } else {
+      decodeResultBox.innerText = "Codice fiscale non valido.";
     }
   });
 });
