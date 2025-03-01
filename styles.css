@@ -8,97 +8,102 @@ body {
     background: linear-gradient(120deg, #f5f7fa, #c3cfe2);
     font-family: 'Poppins', sans-serif; /* Font da Google Fonts */
     color: #333;
-  }
-  
-  /* Wrapper con larghezza massima e margini */
-  .wrapper {
+}
+
+/* Wrapper con larghezza massima e margini; padding superiore ridotto */
+.wrapper {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 30px 20px;
-  }
-  
-  /*******************************************
-    TITOLI
-  ********************************************/
-  h1 {
+    padding: 20px 20px; /* Ridotto da 30px a 20px */
+}
+
+/*******************************************
+  TITOLI
+********************************************/
+h1 {
     text-align: center;
     margin-bottom: 40px;
     color: #2c3e50;
     font-weight: 600;
     letter-spacing: 1px;
-  }
-  
-  h2 {
+}
+
+h2 {
     margin-top: 0;
     color: #007bff;
     font-weight: 600;
-  }
-  
-  /*******************************************
-    LAYOUT PRINCIPALE
-  ********************************************/
-  .container {
+}
+
+/*******************************************
+  LAYOUT PRINCIPALE
+********************************************/
+.container {
     display: flex;
     gap: 20px;
     margin-bottom: 30px;
-  }
-  
-  /*******************************************
-    SEZIONI (CARDS)
-  ********************************************/
-  section {
+}
+
+/*******************************************
+  SEZIONI (CARDS)
+********************************************/
+section {
     flex: 1 1 300px;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
     padding: 20px;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-  
-  /* Leggero effetto hover sulla card */
-  section:hover {
+}
+
+/* Leggero effetto hover sulla card */
+section:hover {
     transform: translateY(-3px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-  }
-  
-  /*******************************************
-    FORMS E CAMPI
-  ********************************************/
-  .form-row {
+}
+
+/*******************************************
+  FORMS E CAMPI
+********************************************/
+.form-row {
     display: flex;
     gap: 10px;
     margin-bottom: 10px;
-  }
-  
-  .form-group {
+}
+
+/* Forzare la riga senza wrapping */
+.form-row.no-wrap {
+    flex-wrap: nowrap;
+}
+
+.form-group {
     display: flex;
     flex-direction: column;
-  }
-  
-  /* Per desktop: i tre campi sono affiancati */
-  #birthGroup, #placeGroup {
+}
+
+/* Per desktop: i tre campi sono affiancati */
+#birthGroup, #placeGroup {
     flex: 1;
-  }
-  #genderGroup {
+}
+#genderGroup {
     flex: 0 0 80px;
-  }
-  
-  /* Su mobile: 
-     - La riga si rompe in più righe (flex-wrap)
-     - Il campo "Comune di nascita" occupa il 100% della larghezza */
-  @media (max-width: 768px) {
+}
+
+/* Su mobile: 
+   - La riga si rompe in più righe (flex-wrap)
+   - Il campo "Comune di nascita" occupa il 100% della larghezza */
+@media (max-width: 768px) {
     .form-row {
-      flex-wrap: wrap;
+        flex-wrap: wrap;
     }
     #placeGroup {
-      flex: 1 0 100%;
+        flex: 1 0 100%;
     }
-  }
-  
-  /* Stile di base per input e select */
-  input[type="text"],
-  input[type="date"],
-  select {
+}
+
+/* Stile di base per input e select */
+input[type="text"],
+input[type="date"],
+select {
     text-transform: uppercase;
     padding: 10px;
     font-size: 14px;
@@ -108,20 +113,20 @@ body {
     border: 1px solid #ced4da;
     border-radius: 4px;
     transition: border-color 0.2s;
-  }
-  
-  /* Effetto focus */
-  input[type="text"]:focus,
-  input[type="date"]:focus,
-  select:focus {
+}
+
+/* Effetto focus */
+input[type="text"]:focus,
+input[type="date"]:focus,
+select:focus {
     outline: none;
     border-color: #80bdff;
-  }
-  
-  /*******************************************
-    PULSANTI
-  ********************************************/
-  button {
+}
+
+/*******************************************
+  PULSANTI
+********************************************/
+button {
     background-color: #007bff;
     color: #fff;
     border: none;
@@ -130,18 +135,18 @@ body {
     border-radius: 4px;
     padding: 12px 24px;
     transition: background-color 0.2s ease, transform 0.1s ease;
-  }
-  
-  button:hover {
+}
+
+button:hover {
     background-color: #0056b3;
-  }
-  
-  button:active {
+}
+
+button:active {
     transform: scale(0.97);
-  }
-  
-  /* Stile per il bottone "Copia" */
-  .copy-button {
+}
+
+/* Stile per il bottone "Copia" */
+.copy-button {
     background-color: transparent;
     border: none;
     padding: 6px;
@@ -149,16 +154,16 @@ body {
     color: #333;
     align-self: center; /* Centra verticalmente */
     transition: color 0.2s ease;
-  }
-  
-  .copy-button:hover {
+}
+
+.copy-button:hover {
     color: #007bff;
-  }
-  
-  /*******************************************
-    OUTPUT BOX
-  ********************************************/
-  .output-box {
+}
+
+/*******************************************
+  OUTPUT BOX
+********************************************/
+.output-box {
     margin-top: 15px;
     background-color: #f8f9fa;
     padding: 12px 16px;
@@ -169,67 +174,66 @@ body {
     font-size: 16px;
     color: #333;
     position: relative;
-  }
-  
-  /* Testo del CF e bottone di copia */
-  #cfResultText {
+}
+
+/* Testo del CF e bottone di copia */
+#cfResultText {
     flex: 1;
     margin-right: 10px;
-  }
-  
-  /*******************************************
-    DECODIFICA FORM
-  ********************************************/
-  #decodeForm {
+}
+
+/*******************************************
+  DECODIFICA FORM
+********************************************/
+#decodeForm {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
     margin-bottom: 10px;
-  }
-  
-  #decodeForm label {
+}
+
+#decodeForm label {
     flex: 1 0 100%;
     margin-bottom: 5px;
-  }
-  
-  #decodeForm input[type="text"] {
+}
+
+#decodeForm input[type="text"] {
     flex: 1 0 calc(100% - 100px);
     margin-top: 0;
-  }
-  
-  #decodeBtn {
-    flex: 0 0 auto;
-  }
+}
 
-  #credits {          /* Spazio prima della sezione */
+#decodeBtn {
+    flex: 0 0 auto;
+}
+
+#credits {
     margin-bottom: 2em;
-    text-align: center;        /* Centra il testo */
+    text-align: center;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    color: #333;               /* Colore del testo */
-  }
-  
-  .credits-title {
+    color: #333;
+}
+
+.credits-title {
     font-size: 0.9rem;
     font-weight: 600;
-    letter-spacing: 0.05rem;   /* Leggera spaziatura tra le lettere */
+    letter-spacing: 0.05rem;
     margin-bottom: 0.3em;
-    text-transform: uppercase; /* Testo maiuscolo */
-  }
-  
-  .credits-author {
+    text-transform: uppercase;
+}
+
+.credits-author {
     font-size: 1rem;
     color: #555;
-  }
-  
-  /*******************************************
-    RESPONSIVE
-  ********************************************/
-  @media (max-width: 965px) {
+}
+
+/*******************************************
+  RESPONSIVE
+********************************************/
+@media (max-width: 965px) {
     .container {
-      flex-direction: column;
+        flex-direction: column;
     }
     section {
-      margin-bottom: 20px;
+        margin-bottom: 20px;
     }
-  }
-  
+}

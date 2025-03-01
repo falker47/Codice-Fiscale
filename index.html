@@ -6,7 +6,7 @@
     <!-- Meta viewport per adattarsi ai dispositivi mobili -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Codice Fiscale - Calcolatore e Decodificatore</title>
-    
+
     <!-- Favicons -->
     <link href="https://i.postimg.cc/rmCxjswj/main-falker-logo-gecko-transparent-minimal.png" rel="icon">
     <link href="https://i.postimg.cc/rmCxjswj/main-falker-logo-gecko-transparent-minimal.png" rel="apple-touch-icon">
@@ -26,8 +26,8 @@
             <section id="generator">
                 <h2>Genera il Codice Fiscale</h2>
                 <form id="cfForm">
-                    <!-- Prima riga: Nome e Cognome -->
-                    <div class="form-row">
+                    <!-- Prima riga: Nome e Cognome (no-wrap per evitare wrapping su mobile) -->
+                    <div class="form-row no-wrap">
                         <div class="form-group">
                             <label for="name">Nome:</label>
                             <input type="text" id="name" required>
@@ -97,7 +97,7 @@
     </div>
 
     <script src="script.js"></script>
-
+    
 </body>
 
 </html>
