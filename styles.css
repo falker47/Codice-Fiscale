@@ -75,13 +75,24 @@ body {
     flex-direction: column;
   }
   
-  /* birthGroup e placeGroup si espandono,
-     genderGroup è più stretto */
+  /* Per desktop: i tre campi sono affiancati */
   #birthGroup, #placeGroup {
     flex: 1;
   }
   #genderGroup {
     flex: 0 0 80px;
+  }
+  
+  /* Su mobile: 
+     - La riga si rompe in più righe (flex-wrap)
+     - Il campo "Comune di nascita" occupa il 100% della larghezza */
+  @media (max-width: 768px) {
+    .form-row {
+      flex-wrap: wrap;
+    }
+    #placeGroup {
+      flex: 1 0 100%;
+    }
   }
   
   /* Stile di base per input e select */
@@ -136,7 +147,7 @@ body {
     padding: 6px;
     cursor: pointer;
     color: #333;
-    align-self: center;
+    align-self: center; /* Centra verticalmente */
     transition: color 0.2s ease;
   }
   
@@ -154,7 +165,7 @@ body {
     border-radius: 4px;
     min-height: 50px;
     display: flex;
-    align-items: center;
+    align-items: center; /* Centro verticale */
     font-size: 16px;
     color: #333;
     position: relative;
@@ -190,8 +201,7 @@ body {
     flex: 0 0 auto;
   }
 
-  #credits {
-    margin-top: 2em;           /* Spazio prima della sezione */
+  #credits {          /* Spazio prima della sezione */
     margin-bottom: 2em;
     text-align: center;        /* Centra il testo */
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -212,7 +222,7 @@ body {
   }
   
   /*******************************************
-    RESPONSIVENESS
+    RESPONSIVE
   ********************************************/
   @media (max-width: 768px) {
     .container {
