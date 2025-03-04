@@ -1,107 +1,111 @@
 <!DOCTYPE html>
 <html lang="it">
-
 <head>
-    <meta charset="UTF-8">
-    <!-- Meta viewport per adattarsi ai dispositivi mobili -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Codice Fiscale - Calcolatore e Decodificatore</title>
+  <meta charset="UTF-8">
+  <!-- Meta viewport per adattarsi ai dispositivi mobili -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calcolo Codice Fiscale</title>
 
-    <!-- Favicons -->
+  <!-- Favicons -->
   <link href="https://i.postimg.cc/rmCxjswj/main-falker-logo-gecko-transparent-minimal.png" rel="icon">
   <link href="https://i.postimg.cc/rmCxjswj/main-falker-logo-gecko-transparent-minimal.png" rel="apple-touch-icon">
 
-  <!-- Anteprima Immagine -->
-  <meta property="og:image" content="https://i.postimg.cc/KY9JyDdC/main-falker-logo-gecko-circle-night-blue-2.png">
-  <meta name="twitter:image" content="https://i.postimg.cc/KY9JyDdC/main-falker-logo-gecko-circle-night-blue-2.png">
+  <!-- Anteprima Immagine (Open Graph e Twitter) -->
+  <meta property="og:title" content="Calcolo Codice Fiscale">
+  <meta property="og:description" content="Web app moderna e responsiva per generare e decodificare il codice fiscale.">
+  <meta property="og:image" content="assets/codice-fiscale.webp">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Calcolo Codice Fiscale">
+  <meta name="twitter:description" content="Web app moderna e responsiva per generare e decodificare il codice fiscale.">
+  <meta name="twitter:image" content="assets/codice-fiscale.webp">
 
-    <!-- Import del font "Poppins" da Google Fonts -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+  <!-- Import del font "Poppins" da Google Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Foglio di stile personalizzato -->
+  <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <div class="wrapper">
-        <h1>Codice Fiscale: Calcolo e Decodifica</h1>
+  <div class="wrapper">
+    <h1>Codice Fiscale: Calcolo e Decodifica</h1>
 
-        <div class="container">
-            <!-- Sezione per generare il Codice Fiscale -->
-            <section id="generator">
-                <h2>Genera il Codice Fiscale</h2>
-                <form id="cfForm">
-                    <!-- Prima riga: Nome e Cognome (no-wrap per evitare wrapping su mobile) -->
-                    <div class="form-row no-wrap">
-                        <div class="form-group">
-                            <label for="name">Nome:</label>
-                            <input type="text" id="name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="surname">Cognome:</label>
-                            <input type="text" id="surname" required>
-                        </div>
-                    </div>
+    <div class="container">
+      <!-- Sezione per generare il Codice Fiscale -->
+      <section id="generator">
+        <h2>Genera il Codice Fiscale</h2>
+        <form id="cfForm">
+          <!-- Prima riga: Nome e Cognome (no-wrap per evitare wrapping su mobile) -->
+          <div class="form-row no-wrap">
+            <div class="form-group">
+              <label for="name">Nome:</label>
+              <input type="text" id="name" required>
+            </div>
+            <div class="form-group">
+              <label for="surname">Cognome:</label>
+              <input type="text" id="surname" required>
+            </div>
+          </div>
 
-                    <!-- Seconda riga: Data di nascita, Sesso, Comune di nascita -->
-                    <div class="form-row">
-                        <div class="form-group" id="birthGroup">
-                            <label for="birthdate">Data di nascita:</label>
-                            <input type="date" id="birthdate" required>
-                        </div>
-                        <div class="form-group" id="genderGroup">
-                            <label for="gender">Sesso:</label>
-                            <select id="gender" required>
-                                <option value="M">M</option>
-                                <option value="F">F</option>
-                            </select>
-                        </div>
-                        <div class="form-group" id="placeGroup">
-                            <label for="place">Comune di nascita:</label>
-                            <input type="text" id="place" list="comuniList" required>
-                            <datalist id="comuniList"></datalist>
-                        </div>
-                    </div>
+          <!-- Seconda riga: Data di nascita, Sesso, Comune di nascita -->
+          <div class="form-row">
+            <div class="form-group" id="birthGroup">
+              <label for="birthdate">Data di nascita:</label>
+              <input type="date" id="birthdate" required>
+            </div>
+            <div class="form-group" id="genderGroup">
+              <label for="gender">Sesso:</label>
+              <select id="gender" required>
+                <option value="M">M</option>
+                <option value="F">F</option>
+              </select>
+            </div>
+            <div class="form-group" id="placeGroup">
+              <label for="place">Comune di nascita:</label>
+              <input type="text" id="place" list="comuniList" required>
+              <datalist id="comuniList"></datalist>
+            </div>
+          </div>
 
-                    <button type="submit">Genera Codice Fiscale</button>
-                </form>
+          <button type="submit">Genera Codice Fiscale</button>
+        </form>
 
-                <!-- Box dedicato all'output -->
-                <div class="output-box">
-                    <span id="cfResultText"></span>
-                    <!-- Bottone per copiare il CF (inizialmente nascosto via script) -->
-                    <button id="copyCFButton" class="copy-button" style="display: none;"
-                        title="Copia il codice fiscale">
-                        <!-- Icona "copia" (inline SVG) -->
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                            <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 
-                1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
-                        </svg>
-                    </button>
-                </div>
-            </section>
-
-            <!-- Sezione per decodificare il Codice Fiscale -->
-            <section id="decoder">
-                <h2>Decodifica il Codice Fiscale</h2>
-                <form id="decodeForm">
-                    <label for="cfInput">Inserisci Codice Fiscale:</label>
-                    <input type="text" id="cfInput" required>
-                    <button type="submit" id="decodeBtn">Decodifica</button>
-                </form>
-
-                <!-- Box dedicato all'output -->
-                <div class="output-box" id="decodeResultBox"></div>
-            </section>
+        <!-- Box dedicato all'output -->
+        <div class="output-box">
+          <span id="cfResultText"></span>
+          <!-- Bottone per copiare il CF (inizialmente nascosto via script) -->
+          <button id="copyCFButton" class="copy-button" style="display: none;" title="Copia il codice fiscale">
+            <!-- Icona "copia" (inline SVG) -->
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 
+                1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+            </svg>
+          </button>
         </div>
-    </div>
+      </section>
 
-    <div id="credits">
-        <div class="credits-title">CREATED BY</div>
-        <div class="credits-author">falker47 &ndash; Maurizio Falconi</div>
-    </div>
+      <!-- Sezione per decodificare il Codice Fiscale -->
+      <section id="decoder">
+        <h2>Decodifica il Codice Fiscale</h2>
+        <form id="decodeForm">
+          <label for="cfInput">Inserisci Codice Fiscale:</label>
+          <input type="text" id="cfInput" required>
+          <button type="submit" id="decodeBtn">Decodifica</button>
+        </form>
 
-    <script src="script.js"></script>
-    
+        <!-- Box dedicato all'output -->
+        <div class="output-box" id="decodeResultBox"></div>
+      </section>
+    </div>
+  </div>
+
+  <div id="credits">
+    <div class="credits-title">CREATED BY</div>
+    <div class="credits-author">falker47 &ndash; Maurizio Falconi</div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
-
 </html>
