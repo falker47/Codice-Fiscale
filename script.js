@@ -1,3 +1,6 @@
+// get current year for footer
+document.getElementById("currentYear").textContent = new Date().getFullYear();
+
 // Mappe globali per i comuni
 let comuniByName = {};
 let comuniByBelfiore = {};
