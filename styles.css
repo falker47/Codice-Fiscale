@@ -8,16 +8,25 @@
 /*******************************************
   FONT E BACKGROUND
 ********************************************/
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 body {
+  display: flex;
+  flex-direction: column;
   font-family: 'Poppins', sans-serif;
   line-height: 1.6;
   /* Sfondo ispirato all'immagine allegata (azzurro/verde acqua) */
-  background: #b1c4ca; 
+  background: #b1c4ca;
   color: #2d2d2d; /* Testo scuro per contrasto */
 }
 
 /* Wrapper con larghezza massima e margini */
 .wrapper {
+  flex: 1; /* Si espande a riempire lo spazio disponibile */
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px; /* Margine interno ridotto */
