@@ -220,27 +220,26 @@ button:active {
 }
 
 /*******************************************
-  SEZIONE CREDITI
+  SEZIONE FOOTER
 ********************************************/
-#credits {
-  margin-top: 30px; 
+/* Footer */
+footer {
   text-align: center;
-  font-family: 'Poppins', sans-serif;
-  color: #2d2d2d;
+  padding: 20px;
+  background: #222;         /* Sfondo scuro per contrastare il resto della pagina */
+  color: #bbb;              /* Testo in tono chiaro */
 }
 
-.credits-title {
-  font-size: 0.9rem;
-  font-weight: 600;
-  letter-spacing: 0.05rem;
-  margin-bottom: 0.3em;
-  text-transform: uppercase;
+footer a {
+  color: #bbb;              /* Colore dei link */
+  text-decoration: none;
+  transition: color 0.3s ease;
 }
 
-.credits-author {
-  font-size: 1rem;
-  color: #555;
+footer a:hover {
+  color: #f18b70;           /* Accento arancione ispirato alla palette */
 }
+
 
 /*******************************************
   RESPONSIVE
