@@ -191,12 +191,6 @@ function decodeCodiceFiscale(cf) {
 // Attende il caricamento completo del DOM
 document.addEventListener("DOMContentLoaded", function () {
     
-    // Rimozione automatica degli spazi in tutti gli input text
-    document.querySelectorAll('input[type="text"]').forEach(input => {
-        input.addEventListener('input', function () {
-            this.value = this.value.replace(/\s/g, '');
-        });
-    });
 
     // Carica la mappa dei comuni
     loadComuni();
