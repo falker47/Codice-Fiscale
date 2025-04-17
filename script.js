@@ -15,6 +15,7 @@ function loadComuni() {
                 const comuneName = item["DESCRIZIONE COMUNE"].toUpperCase();
                 const belfiore = item["CODICE BELFIORE"];
                 const sigla = item["SIGLA"];
+                const regione   = item["REGIONE"];
 
                 // Popola la mappa per la generazione CF
                 comuniByName[comuneName] = {
@@ -24,8 +25,9 @@ function loadComuni() {
 
                 // Popola la mappa inversa per la decodifica
                 comuniByBelfiore[belfiore] = {
-                    name: item["DESCRIZIONE COMUNE"],
-                    sigla: sigla
+                    name:    item["DESCRIZIONE COMUNE"],
+                    sigla:   sigla,
+                    regione: regione
                 };
 
                 // Aggiungi l'opzione al datalist
@@ -178,13 +180,19 @@ function decodeCodiceFiscale(cf) {
         provincia = comuniByBelfiore[belfiore].sigla;
     }
 
+    let regione = ""; 
+    if (comuniByBelfiore[belfiore]) {
+        regione = comuniByBelfiore[belfiore].regione || "";
+    }
+
     return {
         day: day,
         monthName: monthName,
         year: yearFull,
         gender: gender,
         comune: comune,
-        provincia: provincia
+        provincia: provincia,
+        regione:   regione
     };
 }
 
@@ -249,9 +257,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (data) {
             const genderString = (data.gender === "M") ? "Maschile" : "Femminile";
-            const output = `Data di nascita: ${data.day} ${data.monthName} ${data.year}\n` +
-                `Luogo di nascita: ${data.comune} (${data.provincia})\n` +
-                `Sesso: ${genderString}`;
+             // se sigla ≠ EE, aggiungi " - Regione"
+        // se sigla ≠ EE, aggiungi " - Regione"
+        const luogo = 
+          (data.provincia !== "EE" && data.regione)
+            ? `${data.comune} (${data.provincia}) - ${data.regione}`
+            : `${data.comune} (${data.provincia})`;
+
+        const output =
+            `Data di nascita: ${data.day} ${data.monthName} ${data.year}\n` +
+            `Luogo di nascita: ${luogo}\n` +
+            `Sesso: ${genderString}`;
             decodeResultBox.innerText = output;
         } else {
             decodeResultBox.innerText = "Codice fiscale non valido.";
