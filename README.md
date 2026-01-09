@@ -1,5 +1,4 @@
 <div align="center">
-  <img src="codice-fiscale.webp" alt="Logo Codice Fiscale" width="120" />
 
   # Calcolo Codice Fiscale
 
@@ -25,12 +24,6 @@
     </a>
   </p>
 
-  <p>
-    <a href="#-funzionalità">Funzionalità</a> •
-    <a href="#-installazione-e-uso">Installazione</a> •
-    <a href="#-tecnologie">Tecnologie</a> •
-    <a href="#-crediti">Crediti</a>
-  </p>
 </div>
 
 ---
@@ -59,12 +52,6 @@ Inserisci un codice fiscale esistente per estrarre:
 - **Responsive**: Perfetto su Desktop, Tablet e Smartphone.
 - **Database Offline**: Utilizza un database JSON interno per i codici catastali, garantendo velocità senza chiamate API esterne lente.
 
-## 📸 Screenshots
-
-<div align="center">
-  <img src="https://via.placeholder.com/800x400?text=Screenshot+Applicazione" alt="Screenshot App" width="800" />
-  <p><em>Anteprima dell'interfaccia utente (Placeholder)</em></p>
-</div>
 
 ## 🛠 Installazione e Uso
 
