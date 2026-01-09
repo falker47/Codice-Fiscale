@@ -7,12 +7,6 @@
   </p>
 
   <p>
-    <a href="https://github.com/falker47/Codice-Fiscale/blob/main/LICENSE">
-      <img src="https://img.shields.io/github/license/falker47/Codice-Fiscale?style=flat-square&color=blue" alt="License" />
-    </a>
-    <a href="https://github.com/falker47/Codice-Fiscale/stargazers">
-      <img src="https://img.shields.io/github/stars/falker47/Codice-Fiscale?style=flat-square&color=yellow" alt="Stars" />
-    </a>
     <a href="https://developer.mozilla.org/en-US/docs/Web/HTML">
       <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white" alt="HTML5" />
     </a>
