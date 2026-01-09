@@ -1,31 +1,99 @@
-# Calcolo Codice Fiscale
+<div align="center">
+  <img src="codice-fiscale.webp" alt="Logo Codice Fiscale" width="120" />
 
-Web app semplice e responsive per il calcolo e la decodifica del Codice Fiscale italiano.
+  # Calcolo Codice Fiscale
 
-## Funzionalità
+  <p>
+    <strong>Il modo più veloce e semplice per calcolare e decodificare il Codice Fiscale italiano.</strong>
+  </p>
 
-- **Calcolo Codice Fiscale**: Genera il codice fiscale a partire da nome, cognome, data di nascita, sesso e comune di nascita.
-- **Decodifica Codice Fiscale**: Estrae le informazioni anagrafiche (data di nascita, sesso, comune e provincia) a partire da un codice fiscale esistente.
-- **Copia negli appunti**: Pulsante rapido per copiare il codice fiscale generato.
-- **Database Comuni**: Autocompletamento per i comuni italiani basato su un database JSON.
-- **Responsive Design**: Ottimizzato per dispositivi desktop e mobili.
+  <p>
+    <a href="https://github.com/falker47/Codice-Fiscale/blob/main/LICENSE">
+      <img src="https://img.shields.io/github/license/falker47/Codice-Fiscale?style=flat-square&color=blue" alt="License" />
+    </a>
+    <a href="https://github.com/falker47/Codice-Fiscale/stargazers">
+      <img src="https://img.shields.io/github/stars/falker47/Codice-Fiscale?style=flat-square&color=yellow" alt="Stars" />
+    </a>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/HTML">
+      <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white" alt="HTML5" />
+    </a>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS">
+      <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white" alt="CSS3" />
+    </a>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript">
+      <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black" alt="JavaScript" />
+    </a>
+  </p>
 
-## Tecnologie Utilizzate
+  <p>
+    <a href="#-funzionalità">Funzionalità</a> •
+    <a href="#-installazione-e-uso">Installazione</a> •
+    <a href="#-tecnologie">Tecnologie</a> •
+    <a href="#-crediti">Crediti</a>
+  </p>
+</div>
 
-- **HTML5**: Struttura semantica della pagina.
-- **CSS3**: Stile personalizzato con font Google "Poppins".
-- **JavaScript (Vanilla)**: Logica per il calcolo, la decodifica e la gestione del DOM.
-- **JSON**: Database locale (`DB-province.json`) per i codici catastali (Belfiore) dei comuni.
+---
 
-## Installazione e Uso
+## 🚀 Visione
+Questa Web App nasce con l'obiettivo di fornire uno strumento **immediato**, **leggero** e **responsive** per la gestione del Codice Fiscale. A differenza di molti siti pieni di pubblicità, questo progetto è open-source, pulito e focalizzato sull'esperienza utente.
 
-Non è necessaria alcuna installazione particolare. È sufficiente clonare la repository o scaricare i file e aprire `index.html` nel browser.
+## ✨ Funzionalità
 
-1. Scarica i file.
-2. Apri `index.html` con il tuo browser preferito.
-3. Compila il modulo per generare un codice fiscale o usa la sezione di decodifica per analizzarne uno.
+### 🔢 Calcolo Codice Fiscale
+Genera istantaneamente il codice fiscale inserendo:
+- Nome e Cognome
+- Data di nascita
+- Sesso
+- Comune di nascita (con autocompletamento intelligente)
 
-## Crediti
+### 🔍 Decodifica Inversa
+Inserisci un codice fiscale esistente per estrarre:
+- Data di nascita
+- Sesso
+- Comune e Provincia di nascita
 
-- **Autore**: Maurizio Falconi - [falker47](https://github.com/falker47)
-- **Font**: [Poppins](https://fonts.google.com/specimen/Poppins)
+### ⚡ Altre Caratteristiche
+- **Design Moderno**: Interfaccia pulita con font *Poppins* e layout intuitivo.
+- **Copy-to-Clipboard**: Copia il risultato con un solo click.
+- **Responsive**: Perfetto su Desktop, Tablet e Smartphone.
+- **Database Offline**: Utilizza un database JSON interno per i codici catastali, garantendo velocità senza chiamate API esterne lente.
+
+## 📸 Screenshots
+
+<div align="center">
+  <img src="https://via.placeholder.com/800x400?text=Screenshot+Applicazione" alt="Screenshot App" width="800" />
+  <p><em>Anteprima dell'interfaccia utente (Placeholder)</em></p>
+</div>
+
+## 🛠 Installazione e Uso
+
+Non è richiesta alcuna installazione complessa (npm, build tools, ecc.). Il progetto è puro HTML/JS.
+
+1.  **Clona la repository**:
+    ```bash
+    git clone https://github.com/falker47/Codice-Fiscale.git
+    ```
+2.  **Apri il progetto**:
+    Basta fare doppio click su `index.html` o aprirlo con il tuo browser preferito.
+
+## 💻 Tecnologie
+
+-   **HTML5**: Markup semantico e accessibile.
+-   **CSS3**: Flexbox/Grid, variabili CSS e media queries per il responsive design.
+-   **JavaScript (ES6+)**: Logica di calcolo, manipolazione DOM e gestione eventi.
+-   **JSON**: Database dei comuni italiani (`DB-province.json`).
+
+## ✍️ Crediti
+
+Sviluppato con ❤️ da **Maurizio Falconi** ([falker47](https://github.com/falker47)).
+
+-   **Font**: [Poppins](https://fonts.google.com/specimen/Poppins) by Google Fonts.
+-   **Database Comuni**: Elaborazione dati ISTAT.
+
+---
+
+<div align="center">
+  <p>Se questo progetto ti è stato utile, considera di lasciare una stella ⭐!</p>
+</div>
+
