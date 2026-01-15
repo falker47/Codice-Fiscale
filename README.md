@@ -41,28 +41,31 @@ Inserisci un codice fiscale esistente per estrarre:
 - Comune e Provincia di nascita
 
 ### ⚡ Altre Caratteristiche
-- **Design Moderno**: Interfaccia pulita con font *Poppins* e layout intuitivo.
-- **Copy-to-Clipboard**: Copia il risultato con un solo click.
+- **Design Glassmorphism Premium**: Un'interfaccia moderna e trasparente con sfondi animati e blur effects, curata nei minimi dettagli.
+- **Notifiche "Toast"**: Feedback visivo elegante e non intrusivo per ogni operazione (successo/errore), che sostituisce i vecchi alert.
+- **Layout Compatto**: Box ottimizzati per occupare meno spazio verticale e garantire un'esperienza fluida.
 - **Responsive**: Perfetto su Desktop, Tablet e Smartphone.
-- **Database Offline**: Utilizza un database JSON interno per i codici catastali, garantendo velocità senza chiamate API esterne lente.
-
+- **Copy-to-Clipboard**: Copia il risultato con un solo click.
 
 ## 🛠 Installazione e Uso
 
-Non è richiesta alcuna installazione complessa (npm, build tools, ecc.). Il progetto è puro HTML/JS.
+A differenza della vecchia versione, per garantire il funzionamento del database dei comuni (JSON) e rispettare le nuove policy di sicurezza dei browser (CORS), è necessario avviare il progetto tramite un **Server Locale**.
 
 1.  **Clona la repository**:
     ```bash
     git clone https://github.com/falker47/Codice-Fiscale.git
     ```
-2.  **Apri il progetto**:
-    Basta fare doppio click su `index.html` o aprirlo con il tuo browser preferito.
+2.  **Avvia con un Server Locale**:
+    -   Se usi **VS Code**: Installa l'estensione "Live Server", fai click destro su `index.html` e seleziona "Open with Live Server".
+    -   Oppure usa Python: `python -m http.server` nella cartella del progetto e apri `http://localhost:8000`.
+    -   *Nota: Aprire direttamente il file con doppio click potrebbe impedire il caricamento del database dei comuni.*
+
 
 ## 💻 Tecnologie
 
 -   **HTML5**: Markup semantico e accessibile.
--   **CSS3**: Flexbox/Grid, variabili CSS e media queries per il responsive design.
--   **JavaScript (ES6+)**: Logica di calcolo, manipolazione DOM e gestione eventi.
+-   **CSS3**: Flexbox/Grid, variabili CSS, Backdrop Filter e animazioni.
+-   **JavaScript (ES6+)**: Logica modulare, gestione eventi asincrona (Fetch API) e manipolazione DOM.
 -   **JSON**: Database dei comuni italiani (`DB-province.json`).
 
 ## ✍️ Crediti

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
   <meta charset="UTF-8">
   <!-- Meta viewport per adattarsi ai dispositivi mobili -->
@@ -12,12 +13,14 @@
 
   <!-- Anteprima Immagine (Open Graph e Twitter) -->
   <meta property="og:title" content="Calcolo Codice Fiscale">
-  <meta property="og:description" content="Web app che calcola il codice fiscale italiano a partire dai dati anagrafici e viceversa, ovvero recuperare dal codice fiscale sesso, data e luogo di nascita.">
+  <meta property="og:description"
+    content="Web app che calcola il codice fiscale italiano a partire dai dati anagrafici e viceversa, ovvero recuperare dal codice fiscale sesso, data e luogo di nascita.">
   <meta property="og:image" content="https://falker47.github.io/Codice-Fiscale/codice-fiscale.webp">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Calcolo Codice Fiscale">
-  <meta name="twitter:description" content="Web app che calcola il codice fiscale italiano a partire dai dati anagrafici e viceversa, ovvero recuperare dal codice fiscale sesso, data e luogo di nascita.">
+  <meta name="twitter:description"
+    content="Web app che calcola il codice fiscale italiano a partire dai dati anagrafici e viceversa, ovvero recuperare dal codice fiscale sesso, data e luogo di nascita.">
   <meta name="twitter:image" content="https://falker47.github.io/Codice-Fiscale/codice-fiscale.webp">
 
   <!-- Import del font "Poppins" da Google Fonts -->
@@ -29,6 +32,11 @@
 </head>
 
 <body>
+  <div class="background-decor">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
   <div class="wrapper">
     <h1>Codice Fiscale: Calcolo e Decodifica</h1>
 
@@ -80,7 +88,7 @@
             <!-- Icona "copia" (inline SVG) -->
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 
-                1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
             </svg>
           </button>
         </div>
@@ -91,8 +99,10 @@
         <h2>Decodifica il Codice Fiscale</h2>
         <form id="decodeForm">
           <label for="cfInput">Inserisci Codice Fiscale:</label>
-          <input type="text" id="cfInput" required>
-          <button type="submit" id="decodeBtn">Decodifica</button>
+          <div class="input-group">
+            <input type="text" id="cfInput" required>
+            <button type="submit" id="decodeBtn">Decodifica</button>
+          </div>
         </form>
 
         <!-- Box dedicato all'output -->
@@ -102,14 +112,16 @@
   </div>
 
   <footer>
-  <p>
-    <a href="https://falker47.github.io/Nexus-portfolio/" target="_blank">
-      &copy; <span id="currentYear"></span> Maurizio Falconi - falker47
-    </a>
-  </p>
-</footer>
+    <p>
+      <a href="https://falker47.github.io/Nexus-portfolio/" target="_blank">
+        &copy; <span id="currentYear"></span> Maurizio Falconi - falker47
+      </a>
+    </p>
+  </footer>
 
 
+  <div id="toast-container"></div>
   <script src="script.js"></script>
 </body>
+
 </html>
