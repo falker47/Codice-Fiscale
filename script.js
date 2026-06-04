@@ -16,6 +16,7 @@
             currentYear: document.getElementById("currentYear"),
             datalist: document.getElementById("comuniList"),
             cfForm: document.getElementById("cfForm"),
+            cfResultBox: document.getElementById("cfResultBox"),
             cfResultText: document.getElementById("cfResultText"),
             copyCFButton: document.getElementById("copyCFButton"),
             decodeForm: document.getElementById("decodeForm"),
@@ -32,7 +33,12 @@
             if (type === 'success') icon = '✓';
             if (type === 'error') icon = '✕';
 
-            toast.innerHTML = `<span>${icon}</span><span>${message}</span>`;
+            toast.textContent = "";
+            const iconNode = document.createElement('span');
+            iconNode.textContent = type === 'success' ? 'OK' : (type === 'error' ? '!' : 'i');
+            const textNode = document.createElement('span');
+            textNode.textContent = message;
+            toast.append(iconNode, textNode);
 
             this.elements.toastContainer.appendChild(toast);
 
@@ -228,8 +234,9 @@
         // Keyboard Navigation
         UI.focusNext("name", "surname");
         UI.focusNext("surname", "birthdate");
-        UI.focusNext("birthdate", "gender");
-        UI.focusNext("gender", "place");
+        UI.focusNext("birthdate", "genderM");
+        UI.focusNext("genderM", "place");
+        UI.focusNext("genderF", "place");
 
         // Generation Handler
         UI.elements.cfForm.addEventListener("submit", (e) => {
@@ -238,7 +245,8 @@
                 const surname = document.getElementById("surname").value.trim();
                 const name = document.getElementById("name").value.trim();
                 const birthdate = document.getElementById("birthdate").value;
-                const gender = document.getElementById("gender").value;
+                const checkedGender = document.querySelector('input[name="gender"]:checked');
+                const gender = checkedGender ? checkedGender.value : "";
                 const place = document.getElementById("place").value.trim();
 
                 if (!surname || !name || !birthdate || !place) {
@@ -247,12 +255,12 @@
 
                 const cf = Logic.calculate(surname, name, birthdate, gender, place);
                 UI.elements.cfResultText.innerText = cf;
-                UI.elements.cfResultText.parentElement.classList.add("show"); // Show output box
+                UI.elements.cfResultBox.classList.add("show"); // Show output box
                 UI.elements.copyCFButton.style.display = "inline-flex";
                 UI.showToast("Codice Fiscale Calcolato!", "success");
             } catch (err) {
                 UI.elements.cfResultText.innerText = "Errore";
-                UI.elements.cfResultText.parentElement.classList.add("show"); // Show output box on error too
+                UI.elements.cfResultBox.classList.add("show"); // Show output box on error too
                 UI.elements.copyCFButton.style.display = "none";
                 UI.showToast(err.message, "error");
             }
