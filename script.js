@@ -118,7 +118,7 @@ function renderDecodedFiscalCode(decoded) {
     <div class="decode-grid">
       <div class="decode-item">
         <span class="decode-label">Data di nascita</span>
-        <span class="decode-value">${decoded.day} ${decoded.monthName} · anno terminante in ${decoded.yearSuffix}</span>
+        <span class="decode-value">${decoded.displayBirthDate}</span>
       </div>
 
       <div class="decode-item">
