@@ -1,83 +1,99 @@
-<div align="center">
+# Codice Fiscale
 
-  # Calcolo Codice Fiscale
+![Anteprima](codice-fiscale.webp)
 
-  <p>
-    <strong>Il modo più veloce e semplice per calcolare e decodificare il Codice Fiscale italiano.</strong>
-  </p>
+Calcolatore e decoder client-side del **Codice Fiscale italiano**, basato sulle regole formali del D.M. 23 dicembre 1976.
 
-  <p>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/HTML">
-      <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white" alt="HTML5" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS">
-      <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white" alt="CSS3" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript">
-      <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black" alt="JavaScript" />
-    </a>
-  </p>
+**Live demo:** https://falker47.github.io/Codice-Fiscale/
 
-</div>
+## Cosa fa
 
----
+- genera il **codice fiscale teorico di base** da nome, cognome, data, sesso e Comune/Stato estero di nascita;
+- applica la regola speciale del nome con quattro o più consonanti;
+- normalizza accenti, spazi, apostrofi e separatori nei nomi;
+- verifica struttura e **carattere di controllo** prima della decodifica;
+- riconosce e decodifica le sostituzioni da **omocodia**;
+- usa un database locale di codici Belfiore, inclusi gli Stati esteri;
+- disambigua località omonime mostrando provincia e codice Belfiore;
+- funziona interamente nel browser: i dati anagrafici inseriti non vengono inviati a un backend del progetto.
 
-## 🚀 Visione
-Questa Web App nasce con l'obiettivo di fornire uno strumento **immediato**, **leggero** e **responsive** per la gestione del Codice Fiscale. A differenza di molti siti pieni di pubblicità, questo progetto è open-source, pulito e focalizzato sull'esperienza utente.
+## Limiti importanti
 
-## ✨ Funzionalità
+### Il codice calcolato non certifica quello ufficiale
 
-### 🔢 Calcolo Codice Fiscale
-Genera istantaneamente il codice fiscale inserendo:
-- Nome e Cognome
-- Data di nascita
-- Sesso
-- Comune di nascita (con autocompletamento intelligente)
+Il codice prodotto dai dati anagrafici è la forma teorica di base. In caso di omocodia l'Agenzia delle Entrate può attribuire un codice differente sostituendo alcune cifre con lettere e ricalcolando il carattere di controllo.
 
-### 🔍 Decodifica Inversa
-Inserisci un codice fiscale esistente per estrarre:
-- Data di nascita
-- Sesso
-- Comune e Provincia di nascita
+Per usi amministrativi fa fede esclusivamente il codice fiscale attribuito dall'Agenzia delle Entrate e registrato in Anagrafe Tributaria.
 
-### ⚡ Altre Caratteristiche
-- **Design Glassmorphism Premium**: Un'interfaccia moderna e trasparente con sfondi animati e blur effects, curata nei minimi dettagli.
-- **Notifiche "Toast"**: Feedback visivo elegante e non intrusivo per ogni operazione (successo/errore), che sostituisce i vecchi alert.
-- **Layout Compatto**: Box ottimizzati per occupare meno spazio verticale e garantire un'esperienza fluida.
-- **Responsive**: Perfetto su Desktop, Tablet e Smartphone.
-- **Copy-to-Clipboard**: Copia il risultato con un solo click.
+Servizio ufficiale di verifica:
+https://telematici.agenziaentrate.gov.it/VerificaCF/IVerificaCfPf.jsp
 
-## 🛠 Installazione e Uso
+### Dal codice non si ricava il secolo
 
-A differenza della vecchia versione, per garantire il funzionamento del database dei comuni (JSON) e rispettare le nuove policy di sicurezza dei browser (CORS), è necessario avviare il progetto tramite un **Server Locale**.
+Il Codice Fiscale contiene soltanto le ultime due cifre dell'anno di nascita. Il decoder mostra quindi il giorno, il mese e il suffisso dell'anno senza inventare automaticamente il secolo.
 
-1.  **Clona la repository**:
-    ```bash
-    git clone https://github.com/falker47/Codice-Fiscale.git
-    ```
-2.  **Avvia con un Server Locale**:
-    -   Se usi **VS Code**: Installa l'estensione "Live Server", fai click destro su `index.html` e seleziona "Open with Live Server".
-    -   Oppure usa Python: `python -m http.server` nella cartella del progetto e apri `http://localhost:8000`.
-    -   *Nota: Aprire direttamente il file con doppio click potrebbe impedire il caricamento del database dei comuni.*
+### Validità formale vs Anagrafe Tributaria
 
+Un codice può essere formalmente corretto — struttura e carattere di controllo validi — senza essere necessariamente attribuito a una persona nell'Anagrafe Tributaria. Questa web app esegue controlli locali, non una verifica anagrafica presso l'Agenzia.
 
-## 💻 Tecnologie
+## Regole coperte
 
--   **HTML5**: Markup semantico e accessibile.
--   **CSS3**: Flexbox/Grid, variabili CSS, Backdrop Filter e animazioni.
--   **JavaScript (ES6+)**: Logica modulare, gestione eventi asincrona (Fetch API) e manipolazione DOM.
--   **JSON**: Database dei comuni italiani (`DB-province.json`).
+La logica implementa le parti rilevanti del D.M. 23/12/1976:
 
-## ✍️ Crediti
+- tre caratteri per cognome e tre per nome;
+- regola 1ª/3ª/4ª consonante per nomi con almeno quattro consonanti;
+- anno a due cifre;
+- codifica del mese con `A B C D E H L M P R S T`;
+- giorno invariato per gli uomini e +40 per le donne;
+- codice Belfiore del Comune o Stato estero;
+- sostituzioni di omocodia `0→L, 1→M, 2→N, 3→P, 4→Q, 5→R, 6→S, 7→T, 8→U, 9→V`;
+- carattere alfabetico finale di controllo.
 
-Sviluppato con ❤️ da **Maurizio Falconi** ([falker47](https://github.com/falker47)).
+Riferimento normativo:
+https://www.iusetnorma.it/normativa/decreto_ministeriale_23_dicembre_1976.asp
 
--   **Font**: [Poppins](https://fonts.google.com/specimen/Poppins) by Google Fonts.
--   **Database Comuni**: Elaborazione dati ISTAT.
+## Sviluppo
 
----
+Il progetto non richiede framework né dipendenze runtime.
 
-<div align="center">
-  <p>Se questo progetto ti è stato utile, considera di lasciare una stella ⭐!</p>
-</div>
+Avvio locale:
 
+```bash
+python -m http.server
+```
+
+Poi apri `http://localhost:8000`.
+
+### Test
+
+Richiede Node.js.
+
+```bash
+npm test
+```
+
+La suite verifica algoritmo di generazione, controllo formale, omocodia, normalizzazione dei nomi e risoluzione delle località, compresi casi omonimi come Castro (BG/LE).
+
+## Struttura
+
+```
+├── index.html
+├── styles.css
+├── script.js
+├── cf-logic.js
+├── DB-province.json
+├── test/
+│   └── cf-logic.test.js
+└── .github/workflows/
+    └── ci.yml
+```
+
+## Fonti dati e riferimenti
+
+- Database locale dei Comuni/Stati esteri: `DB-province.json`
+- D.M. 23 dicembre 1976 — sistema di codificazione delle persone fisiche
+- Agenzia delle Entrate — servizio ufficiale di verifica/corrispondenza
+
+## Disclaimer
+
+Questo è uno strumento informativo e open source. Non sostituisce la verifica presso l'Agenzia delle Entrate.
