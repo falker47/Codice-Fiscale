@@ -258,6 +258,13 @@ button {
   cursor: pointer;
 }
 
+.tool-note {
+  margin-top: -2px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
 .primary-button {
   width: 100%;
   display: inline-flex;
