@@ -59,6 +59,11 @@ test('infers a single modern year when the 2000s candidate is still in the futur
   assert.equal(decoded.displayBirthDate, '01/01/1980');
 });
 
+test('maps 15/06/98 to 15/06/1998 in the modern window', () => {
+  const referenceDate = new Date(2026, 8, 21);
+  assert.deepEqual(inferModernBirthYears('98', 'H', 15, referenceDate), [1998]);
+});
+
 test('shows both modern-century candidates when both dates are already in the past', () => {
   const referenceDate = new Date(2026, 8, 21);
   assert.deepEqual(inferModernBirthYears('16', 'H', 15, referenceDate), [2016, 1916]);
