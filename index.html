@@ -15,13 +15,13 @@
   <meta property="og:title" content="Calcolo Codice Fiscale">
   <meta property="og:description"
     content="Web app che calcola il codice fiscale italiano a partire dai dati anagrafici e viceversa, ovvero recuperare dal codice fiscale sesso, data e luogo di nascita.">
-  <meta property="og:image" content="https://falker47.github.io/Codice-Fiscale/link-preview.webp">
+  <meta property="og:image" content="https://falker47.github.io/Codice-Fiscale/codice-fiscale.webp">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Calcolo Codice Fiscale">
   <meta name="twitter:description"
     content="Web app che calcola il codice fiscale italiano a partire dai dati anagrafici e viceversa, ovvero recuperare dal codice fiscale sesso, data e luogo di nascita.">
-  <meta name="twitter:image" content="https://falker47.github.io/Codice-Fiscale/link-preview.webp">
+  <meta name="twitter:image" content="https://falker47.github.io/Codice-Fiscale/codice-fiscale.webp">
 
   <!-- Import del font "Poppins" da Google Fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -78,11 +78,13 @@
               </div>
             </div>
             <div class="form-group" id="placeGroup">
-              <label for="place">Comune di nascita</label>
-              <input type="text" id="place" list="comuniList" placeholder="Roma" required>
+              <label for="place">Comune o Stato estero di nascita</label>
+              <input type="text" id="place" list="comuniList" placeholder="ROMA (RM) · H501" required>
               <datalist id="comuniList"></datalist>
             </div>
           </div>
+
+          <p class="tool-note">Calcolo teorico secondo il D.M. 23/12/1976. In caso di omocodia, fa fede solo il codice fiscale attribuito dall’Agenzia delle Entrate.</p>
 
           <button type="submit" class="primary-button">
             <span>Genera Codice Fiscale</span>
@@ -131,6 +133,8 @@
           </div>
         </form>
 
+        <p class="tool-note">La decodifica verifica struttura e carattere di controllo. Il codice fiscale contiene solo le ultime due cifre dell’anno: il secolo non è ricavabile con certezza dal codice.</p>
+
         <!-- Box dedicato all'output -->
         <div class="output-box decode-output" aria-live="polite">
           <span class="result-label">Dati estratti</span>
@@ -150,7 +154,7 @@
 
 
   <div id="toast-container"></div>
-  <script src="script.js"></script>
+  <script type="module" src="script.js"></script>
 </body>
 
 </html>
