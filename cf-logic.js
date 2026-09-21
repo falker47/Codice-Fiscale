@@ -193,8 +193,59 @@ export function validateFiscalCode(value) {
   };
 }
 
-export function decodeFiscalCode(value) {
-  return validateFiscalCode(value);
+function monthNumberFromCode(monthCode) {
+  const index = MONTH_CODES.indexOf(monthCode);
+  if (index < 0) throw new Error('Mese codificato non valido.');
+  return index + 1;
+}
+
+export function inferModernBirthYears(yearSuffix, monthCode, day, referenceDate = new Date()) {
+  const yy = Number(yearSuffix);
+  if (!Number.isInteger(yy) || yy < 0 || yy > 99) {
+    throw new Error('Anno codificato non valido.');
+  }
+
+  const month = monthNumberFromCode(monthCode);
+  const currentYear = referenceDate.getFullYear();
+  const currentCentury = Math.floor(currentYear / 100) * 100;
+  const recentYear = currentCentury + yy;
+  const previousYear = recentYear - 100;
+
+  const recentDate = new Date(recentYear, month - 1, day);
+  const candidates = recentDate <= referenceDate
+    ? [recentYear, previousYear]
+    : [previousYear];
+
+  return candidates;
+}
+
+export function formatInferredBirthDate(decoded, referenceDate = new Date()) {
+  const years = inferModernBirthYears(
+    decoded.yearSuffix,
+    decoded.monthCode,
+    decoded.day,
+    referenceDate
+  );
+  const month = monthNumberFromCode(decoded.monthCode);
+  const datePart = (year) =>
+    `${String(decoded.day).padStart(2, '0')}/${String(month).padStart(2, '0')}/${year}`;
+
+  if (years.length === 1) return datePart(years[0]);
+  return `${datePart(years[0])} (o ${datePart(years[1])})`;
+}
+
+export function decodeFiscalCode(value, referenceDate = new Date()) {
+  const decoded = validateFiscalCode(value);
+  return {
+    ...decoded,
+    yearCandidates: inferModernBirthYears(
+      decoded.yearSuffix,
+      decoded.monthCode,
+      decoded.day,
+      referenceDate
+    ),
+    displayBirthDate: formatInferredBirthDate(decoded, referenceDate)
+  };
 }
 
 export function buildPlaceIndex(rows) {
