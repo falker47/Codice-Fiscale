@@ -28,9 +28,15 @@ Per usi amministrativi fa fede esclusivamente il codice fiscale attribuito dall'
 Servizio ufficiale di verifica:
 https://telematici.agenziaentrate.gov.it/VerificaCF/IVerificaCfPf.jsp
 
-### Dal codice non si ricava il secolo
+### Il secolo non è codificato: il decoder usa una stima pratica
 
-Il Codice Fiscale contiene soltanto le ultime due cifre dell'anno di nascita. Il decoder mostra quindi il giorno, il mese e il suffisso dell'anno senza inventare automaticamente il secolo.
+Il Codice Fiscale contiene soltanto le ultime due cifre dell'anno di nascita. Il decoder considera quindi la finestra moderna 1900–2099:
+
+- se la corrispondente data nel 2000 non è ancora avvenuta, mostra soltanto il 1900 (es. `15/06/98 → 15/06/1998`);
+- se entrambe le date 19xx e 20xx sono già trascorse, mostra prima la più recente e poi l'alternativa (es. `15/06/16 → 15/06/2016 (o 15/06/1916)`);
+- per l'anno corrente usa anche giorno e mese: una data futura nel 20xx non viene proposta.
+
+Questa è una convenzione di presentazione utile per persone contemporanee, non informazione contenuta nel Codice Fiscale né una verifica anagrafica ufficiale.
 
 ### Validità formale vs Anagrafe Tributaria
 
