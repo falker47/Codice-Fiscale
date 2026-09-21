@@ -7,6 +7,7 @@ import {
   decodeFiscalCode,
   generateNameCode,
   generateSurnameCode,
+  inferModernBirthYears,
   resolvePlaceCode,
   validateFiscalCode
 } from '../cf-logic.js';
@@ -51,10 +52,23 @@ test('decodes a formally valid omocode without losing the base place code', () =
   assert.equal(decoded.day, 1);
 });
 
-test('does not invent a full century during reverse decoding', () => {
-  const decoded = decodeFiscalCode('RSSMRA80A01H501U');
-  assert.equal(decoded.yearSuffix, '80');
-  assert.equal('year' in decoded, false);
+test('infers a single modern year when the 2000s candidate is still in the future', () => {
+  const referenceDate = new Date(2026, 8, 21);
+  const decoded = decodeFiscalCode('RSSMRA80A01H501U', referenceDate);
+  assert.deepEqual(decoded.yearCandidates, [1980]);
+  assert.equal(decoded.displayBirthDate, '01/01/1980');
+});
+
+test('shows both modern-century candidates when both dates are already in the past', () => {
+  const referenceDate = new Date(2026, 8, 21);
+  assert.deepEqual(inferModernBirthYears('16', 'H', 15, referenceDate), [2016, 1916]);
+});
+
+test('uses the full current date when deciding whether the current-century candidate exists yet', () => {
+  const referenceDate = new Date(2026, 8, 21);
+
+  assert.deepEqual(inferModernBirthYears('26', 'H', 15, referenceDate), [2026, 1926]);
+  assert.deepEqual(inferModernBirthYears('26', 'T', 15, referenceDate), [1926]);
 });
 
 test('place index supports foreign states and forces disambiguation for duplicate names', async () => {
