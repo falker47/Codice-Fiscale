@@ -93,10 +93,11 @@ body {
 .app-title {
   flex-shrink: 0;
   color: var(--teal-dark);
-  font-size: clamp(1.4rem, 6.4vw, 2.2rem);
+  /* Una riga sola anche a 360 px; su PC è largo quasi quanto la scheda */
+  font-size: clamp(1.6rem, 8.2vw, 3rem);
   font-weight: 600;
   line-height: 1.1;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
   text-align: center;
 }
 
@@ -661,7 +662,7 @@ button {
 /* Telefoni bassi (iPhone SE, schermi piccoli): ritmo verticale più stretto */
 @media (max-width: 767px) and (max-height: 700px) {
   .app-title {
-    font-size: 1.3rem;
+    font-size: min(1.85rem, 7.6vw);
   }
 
   .card {
