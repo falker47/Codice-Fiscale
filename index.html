@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <!-- Meta viewport per adattarsi ai dispositivi mobili -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Calcolo Codice Fiscale</title>
 
   <!-- Favicons -->
@@ -24,8 +24,9 @@
   <meta name="twitter:image" content="https://falker47.github.io/Codice-Fiscale/codice-fiscale.webp">
 
   <!-- Import del font "Poppins" da Google Fonts -->
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 
   <!-- Foglio di stile personalizzato -->
   <link rel="stylesheet" href="styles.css">
@@ -33,40 +34,52 @@
 
 <body>
   <div class="background-decor" aria-hidden="true"></div>
-  <main class="wrapper">
-    <header class="app-header">
-      <h1>Calcolo Codice Fiscale</h1>
-    </header>
+  <main class="app">
+    <h1 class="app-title">Calcolo Codice Fiscale</h1>
 
-    <div class="container">
-      <!-- Sezione per generare il Codice Fiscale -->
-      <section id="generator" class="tool-panel">
-        <div class="section-heading">
-          <span class="section-index">01</span>
-          <h2>Calcola</h2>
-        </div>
-        <form id="cfForm">
-          <!-- Prima riga: Nome e Cognome (no-wrap per evitare wrapping su mobile) -->
-          <div class="form-row no-wrap">
-            <div class="form-group">
+    <div class="card">
+      <!-- Le due funzioni sono schede: una sola visibile alla volta -->
+      <div class="tabs" role="tablist" aria-label="Funzione">
+        <button type="button" class="tab" role="tab" id="tab-generator" aria-controls="generator"
+          aria-selected="true" data-hash="calcola">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+            stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="5" width="18" height="14" rx="2.5" />
+            <circle cx="9" cy="11" r="2" />
+            <path d="M6.2 16c.6-1.3 1.6-2 2.8-2s2.2.7 2.8 2M14.5 10h3.5M14.5 14h3.5" />
+          </svg>
+          <span>Calcola</span>
+        </button>
+        <button type="button" class="tab" role="tab" id="tab-decoder" aria-controls="decoder"
+          aria-selected="false" tabindex="-1" data-hash="decodifica">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+            stroke-linejoin="round" aria-hidden="true">
+            <circle cx="10.5" cy="10.5" r="6" />
+            <path d="m19.5 19.5-4.6-4.6" />
+          </svg>
+          <span>Decodifica</span>
+        </button>
+      </div>
+
+      <div class="panels">
+        <!-- Calcolo del Codice Fiscale dai dati anagrafici -->
+        <section id="generator" class="tool-panel is-active" role="tabpanel" aria-labelledby="tab-generator">
+          <form id="cfForm" class="cf-form">
+            <div class="field">
               <label for="name">Nome</label>
               <input type="text" id="name" autocomplete="given-name" placeholder="Mario" required>
             </div>
-            <div class="form-group">
+            <div class="field">
               <label for="surname">Cognome</label>
               <input type="text" id="surname" autocomplete="family-name" placeholder="Rossi" required>
             </div>
-          </div>
-
-          <!-- Seconda riga: Data di nascita, Sesso, Comune di nascita -->
-          <div class="form-row">
-            <div class="form-group" id="birthGroup">
+            <div class="field">
               <label for="birthdate">Data di nascita</label>
               <input type="date" id="birthdate" required>
             </div>
-            <div class="form-group" id="genderGroup">
-              <span class="field-label">Sesso</span>
-              <div class="segmented-control" role="radiogroup" aria-label="Sesso">
+            <div class="field">
+              <span class="field-label" id="genderLabel">Sesso</span>
+              <div class="segmented-control" role="radiogroup" aria-labelledby="genderLabel">
                 <label class="segment">
                   <input type="radio" id="genderM" name="gender" value="M" checked>
                   <span>M</span>
@@ -77,81 +90,68 @@
                 </label>
               </div>
             </div>
-            <div class="form-group" id="placeGroup">
+            <div class="field field-wide">
               <label for="place">Comune o Stato estero di nascita</label>
               <input type="text" id="place" list="comuniList" placeholder="ROMA (RM) · H501" required>
               <datalist id="comuniList"></datalist>
             </div>
+            <button type="submit" class="primary-button field-wide">Calcola il codice fiscale</button>
+          </form>
+
+          <div class="output-box" id="cfResultBox" aria-live="polite">
+            <div class="result-head">
+              <span class="result-label">Codice fiscale</span>
+              <button id="copyCFButton" type="button" class="copy-button" hidden
+                aria-label="Copia il codice fiscale">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" aria-hidden="true">
+                  <rect x="9" y="9" width="11" height="11" rx="2" />
+                  <path d="M5 15V6a2 2 0 0 1 2-2h9" />
+                </svg>
+                <span>Copia</span>
+              </button>
+            </div>
+            <!-- 16 caselle in cinque gruppi, come sui moduli cartacei -->
+            <div id="cfResultText" class="cf-code is-empty"></div>
           </div>
 
-          <p class="tool-note">Calcolo teorico secondo il D.M. 23/12/1976. In caso di omocodia, fa fede solo il codice fiscale attribuito dall’Agenzia delle Entrate.</p>
+          <p class="tool-note">Calcolo teorico secondo il D.M. 23/12/1976. In caso di omocodia fa fede solo il codice
+            attribuito dall’Agenzia delle Entrate.</p>
+        </section>
 
-          <button type="submit" class="primary-button">
-            <span>Genera Codice Fiscale</span>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round" />
-            </svg>
-          </button>
-        </form>
+        <!-- Decodifica del Codice Fiscale -->
+        <section id="decoder" class="tool-panel" role="tabpanel" aria-labelledby="tab-decoder" inert>
+          <form id="decodeForm" class="decode-form">
+            <div class="field">
+              <label for="cfInput">Codice fiscale</label>
+              <input type="text" id="cfInput" placeholder="RSSMRA80A01H501U" minlength="16" maxlength="16"
+                autocomplete="off" spellcheck="false" required>
+            </div>
+            <button type="submit" id="decodeBtn" class="primary-button">Decodifica</button>
+          </form>
 
-        <!-- Box dedicato all'output -->
-        <div class="output-box" id="cfResultBox" aria-live="polite">
-          <span class="result-label">Risultato</span>
-          <div class="result-row">
-            <span id="cfResultText"></span>
-            <!-- Bottone per copiare il CF (inizialmente nascosto via script) -->
-            <button id="copyCFButton" class="copy-button" style="display: none;" title="Copia il codice fiscale"
-              aria-label="Copia il codice fiscale">
-              <!-- Icona "copia" (inline SVG) -->
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path
-                  d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
-              </svg>
-            </button>
+          <div class="output-box decode-output" aria-live="polite">
+            <div class="result-head">
+              <span class="result-label">Dati estratti</span>
+            </div>
+            <div id="decodeResultBox">
+              <p class="empty-hint">Inserisci un codice per leggere data, sesso e luogo di nascita.</p>
+            </div>
           </div>
-        </div>
-      </section>
 
-      <!-- Sezione per decodificare il Codice Fiscale -->
-      <section id="decoder" class="tool-panel">
-        <div class="section-heading">
-          <span class="section-index">02</span>
-          <h2>Decodifica</h2>
-        </div>
-        <form id="decodeForm">
-          <label for="cfInput">Codice Fiscale</label>
-          <div class="input-group">
-            <input type="text" id="cfInput" placeholder="RSSMRA80A01H501U" minlength="16" maxlength="16" required>
-            <button type="submit" id="decodeBtn" class="primary-button compact-button">
-              <span>Decodifica</span>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                  stroke-linejoin="round" />
-              </svg>
-            </button>
-          </div>
-        </form>
-
-        <p class="tool-note">La decodifica verifica struttura e carattere di controllo. Per l’anno usa una stima pratica 1900–2099: mostra il 20xx se la data è già trascorsa e, quando entrambe sono possibili, indica anche il 19xx tra parentesi.</p>
-
-        <!-- Box dedicato all'output -->
-        <div class="output-box decode-output" aria-live="polite">
-          <span class="result-label">Dati estratti</span>
-          <div id="decodeResultBox"></div>
-        </div>
-      </section>
+          <p class="tool-note">La decodifica verifica struttura e carattere di controllo. Per l’anno usa una stima
+            pratica 1900–2099: mostra il 20xx se la data è già trascorsa e, quando entrambe sono possibili, indica
+            anche il 19xx tra parentesi.</p>
+        </section>
+      </div>
     </div>
   </main>
 
-  <footer>
-    <p>
-      <a href="https://falker47.github.io/" target="_blank">
-        &copy; <span id="currentYear"></span> Maurizio Falconi - falker47
-      </a>
-    </p>
+  <footer class="app-footer">
+    <a href="https://falker47.github.io/" target="_blank">
+      &copy; <span id="currentYear"></span> Maurizio Falconi - falker47
+    </a>
   </footer>
-
 
   <div id="toast-container"></div>
   <script type="module" src="script.js"></script>
